@@ -1,0 +1,30 @@
+<h1>Your Friendly Neighborhood Password Checker</h1>
+
+<form action="/checkPassword" method="get">
+  <!-- if no cookie has been set, display the user id box -->
+  <% if !cookies[:user_id_valid] %>
+    <div id="userIdBox">
+      <label for="userId_id">
+        User ID:
+      </label>
+      <input type="text" id="userId_id" name="user_id" minlength = "6" required/>
+      <%= flash[:user_id] %>
+    </div>
+  <!-- if a cookie has been set, but the password is not valid, display the valid user id -->
+  <% elsif !@bothvalid %>
+    <p>Valid User Id: <%= cookies[:user_id] %></p>
+  <% end %>
+
+  <br/>
+  <!-- if the password is not valid, display the password input -->
+  <% if !@bothvalid %>
+    <label for="password_id">Password: </label>
+    <input type="text" id="password_id" name="password" minlength = "6" required/>
+    <%= flash[:password] %>
+    <br/>
+    <input type="submit" id ="submit_button" value="Submit"/>
+  <!-- otherwise both userid and password are valid, display valid statement-->
+  <% else %>
+    <p>Your User ID and password are valid.</p>
+  <% end %>
+</form>
